@@ -1,4 +1,4 @@
-# Step 1: run pytest and flake8 on every push (Python matches environment.yml)
+# Step 1: run pytest and flake8 on every push (Python matches d501 / environment.yml)
 name: Continuous Integration
 
 on:
@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # Match development Python from environment.yml
-        python-version: ["3.10"]
+        # Match development Python (conda env d501: 3.12)
+        python-version: ["3.12"]
 
     steps:
       - uses: actions/checkout@v4
