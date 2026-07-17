@@ -38,8 +38,6 @@ Income prediction can affect real opportunities if misused; this model is for cl
 
 ## Caveats and Recommendations
 
-Default Random Forest settings, no custom decision threshold, and class imbalance were not specially handled. Slice scores for rare categories can look extreme and are hard to trust.
-
 **Did the results suggest further testing?** Yes. Overall F1 is about 0.68, but slices show clear gaps (for example lower recall/F1 for females than males, and weak performance on some education levels). That points to more testing: intersectional slices (e.g. race × sex), threshold tuning, and checks on groups with low counts before any broader use.
 
 **Were any relevant groups missing from evaluation?** Mostly no for major groups—sex, race, and common education/workclass values appear in the test set. A few categories that appear in training are missing or nearly missing from the test split with this `random_state` (e.g. workclass `Never-worked`, native-country `Holand-Netherlands` and `Outlying-US(Guam-USVI-etc)`). Many other native-country values have very few test rows (under 10), so they are underrepresented for reliable metrics even when present.
