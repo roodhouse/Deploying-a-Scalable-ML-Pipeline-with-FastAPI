@@ -4,7 +4,7 @@ For additional information see the Model Card paper: https://arxiv.org/pdf/1810.
 
 ## Model Details
 
-Random Forest classifier (`sklearn.ensemble.RandomForestClassifier`) using default scikit-learn hyperparameters. Built by James Rugh for the D501 scalable ML pipeline project (July 2026, version 1.0). Predicts whether annual income is `>50K` or `<=50K` from Adult/Census Income–style features (age, education, occupation, hours worked, capital gain/loss, workclass, marital status, relationship, race, sex, native country, and related fields). Categorical features are one-hot encoded; no fairness constraints were applied during training.
+Random Forest classifier built by John Rugh. The model predicts whether annual income is `>50K` or `<=50K` from Census features (age, education, occupation, hours worked, capital gain/loss, workclass, marital status, relationship, race, sex, native country, and related fields). Categorical features are one-hot encoded and no fairness constraints were applied during training.
 
 ## Intended Use
 
@@ -34,8 +34,17 @@ When analyzing across data slices, performance varies by group. For example, F1 
 
 ## Ethical Considerations
 
-Income prediction can affect real opportunities if misused; this model is for class only. The data includes sensitive attributes (sex, race, native country), and slice results show uneven performance across groups. No fairness constraints or rebalancing were used. Unknown values (e.g. workclass `?`) are treated as ordinary categories.
+Income prediction can affect real opportunities if misused; this model is for class only. The model is not intended to inform decisions about matters central to human life or flourishing.
 
 ## Caveats and Recommendations
 
-Default hyperparameters, no custom decision threshold, and class imbalance were not specially handled. Slice results for rare categories can be unstable. Do not use this model for high-stakes decisions. Retrain and update this card if the data or pipeline changes; consider group-wise monitoring if the project is extended beyond coursework.
+Default Random Forest settings, no custom decision threshold, and class imbalance were not specially handled. Slice scores for rare categories can look extreme and are hard to trust.
+
+**Did the results suggest further testing?** Yes. Overall F1 is about 0.68, but slices show clear gaps (for example lower recall/F1 for females than males, and weak performance on some education levels). That points to more testing: intersectional slices (e.g. race × sex), threshold tuning, and checks on groups with low counts before any broader use.
+
+**Were any relevant groups missing from evaluation?** Mostly no for major groups—sex, race, and common education/workclass values appear in the test set. A few categories that appear in training are missing or nearly missing from the test split with this `random_state` (e.g. workclass `Never-worked`, native-country `Holand-Netherlands` and `Outlying-US(Guam-USVI-etc)`). Many other native-country values have very few test rows (under 10), so they are underrepresented for reliable metrics even when present.
+
+**Additional recommendations for use:** Keep this model offline and educational. Do not use it for credit, hiring, or benefits. If the pipeline is extended, monitor group-wise precision/recall/F1, be careful with sensitive features, and retrain when the data changes.
+
+**Ideal evaluation data for this model:** A held-out set drawn from the same population and feature schema as training, large enough that important demographic and socioeconomic slices have adequate sample size, with label balance closer to the real deployment mix (or explicitly reweighted). It should include the same categorical values seen in training (or clearly document new levels), allow intersectional analysis, and stay free of leakage from the training fold.
+
