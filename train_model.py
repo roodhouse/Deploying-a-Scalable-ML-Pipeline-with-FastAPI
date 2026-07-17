@@ -18,9 +18,9 @@ data_path = os.path.join(project_path, "data", "census.csv")
 print(data_path)
 data = pd.read_csv(data_path)
 
-# TODO: split the provided data to have a train dataset and a test dataset
+# Split the provided data into a train dataset and a test dataset
 # Optional enhancement, use K-fold cross validation instead of a train-test split.
-train, test = None, None# Your code here
+train, test = train_test_split(data, test_size=0.20, random_state=42)
 
 # DO NOT MODIFY
 cat_features = [
