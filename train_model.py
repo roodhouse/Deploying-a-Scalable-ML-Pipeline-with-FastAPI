@@ -65,8 +65,8 @@ model = load_model(
     model_path
 ) 
 
-# TODO: use the inference function to run the model inferences on the test dataset.
-preds = None # your code here
+# Run model inferences on the test dataset
+preds = inference(model, X_test)
 
 # Calculate and print the metrics
 p, r, fb = compute_model_metrics(y_test, preds)
