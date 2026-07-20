@@ -37,12 +37,11 @@ model = load_model(path)
 # Create a RESTful API using FastAPI
 app = FastAPI()
 
-# TODO: create a GET on the root giving a welcome message
+# GET on the root giving a welcome message
 @app.get("/")
 async def get_root():
     """ Say hello!"""
-    # your code here
-    pass
+    return {"message": "Welcome to the income prediction API!"}
 
 
 # TODO: create a POST on a different path that does model inference
