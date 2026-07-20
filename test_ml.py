@@ -1,7 +1,8 @@
 import numpy as np
+import pytest
 from sklearn.ensemble import RandomForestClassifier
 
-from ml.model import inference, train_model
+from ml.model import compute_model_metrics, inference, train_model
 
 
 def test_inference_returns_ndarray():
@@ -48,10 +49,20 @@ def test_train_model_uses_random_forest():
     assert model.n_features_in_ == X_train.shape[1]
 
 
-# TODO: implement the third test. Change the function name and input as needed
-def test_three():
+def test_compute_model_metrics_known_case():
     """
-    # add description for the third test
+    Metrics value: compute_model_metrics should return known precision,
+    recall, and F1 for a fixed y / preds example.
     """
-    # Your code here
-    pass
+    # y:        [1, 1, 0, 0]
+    # preds:    [1, 0, 0, 0]
+    # TP=1, FP=0, FN=1, TN=2
+    # precision=1.0, recall=0.5, f1=2/3
+    y = np.array([1, 1, 0, 0])
+    preds = np.array([1, 0, 0, 0])
+
+    precision, recall, fbeta = compute_model_metrics(y, preds)
+
+    assert precision == pytest.approx(1.0)
+    assert recall == pytest.approx(0.5)
+    assert fbeta == pytest.approx(2.0 / 3.0)
