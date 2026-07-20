@@ -1,4 +1,5 @@
 import numpy as np
+from sklearn.ensemble import RandomForestClassifier
 
 from ml.model import inference, train_model
 
@@ -26,13 +27,25 @@ def test_inference_returns_ndarray():
     assert preds.shape[0] == X_train.shape[0]
 
 
-# TODO: implement the second test. Change the function name and input as needed
-def test_two():
+def test_train_model_uses_random_forest():
     """
-    # add description for the second test
+    Expected algorithm: train_model should return a fitted RandomForestClassifier.
     """
-    # Your code here
-    pass
+    X_train = np.array(
+        [
+            [0.0, 1.0, 0.0],
+            [1.0, 0.0, 1.0],
+            [0.0, 1.0, 1.0],
+            [1.0, 1.0, 0.0],
+        ]
+    )
+    y_train = np.array([0, 1, 1, 0])
+
+    model = train_model(X_train, y_train)
+
+    assert isinstance(model, RandomForestClassifier)
+    # Fitted estimators expose n_features_in_
+    assert model.n_features_in_ == X_train.shape[1]
 
 
 # TODO: implement the third test. Change the function name and input as needed
