@@ -1,13 +1,29 @@
-import pytest
-# TODO: add necessary import
+import numpy as np
 
-# TODO: implement the first test. Change the function name and input as needed
-def test_one():
+from ml.model import inference, train_model
+
+
+def test_inference_returns_ndarray():
     """
-    # add description for the first test
+    Type of result: inference should return a numpy ndarray with one
+    prediction per input row.
     """
-    # Your code here
-    pass
+    # Small fixed training set (no need for full census data)
+    X_train = np.array(
+        [
+            [0.0, 1.0, 0.0],
+            [1.0, 0.0, 1.0],
+            [0.0, 1.0, 1.0],
+            [1.0, 1.0, 0.0],
+        ]
+    )
+    y_train = np.array([0, 1, 1, 0])
+
+    model = train_model(X_train, y_train)
+    preds = inference(model, X_train)
+
+    assert isinstance(preds, np.ndarray)
+    assert preds.shape[0] == X_train.shape[0]
 
 
 # TODO: implement the second test. Change the function name and input as needed
