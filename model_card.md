@@ -8,7 +8,7 @@ Random Forest classifier built by John Rugh. The model predicts whether annual i
 
 ## Intended Use
 
-For coursework and portfolio demonstration of an ML training and evaluation pipeline. Intended users are students and instructors. Not intended for real credit, hiring, lending, or other decisions about people.
+For coursework and portfolio demonstration of an ML training and evaluation pipeline. Intended users are students and instructors. Not intended for real use.
 
 ## Training Data
 
@@ -38,5 +38,4 @@ Income prediction can affect real opportunities if misused; this model is for cl
 
 ## Caveats and Recommendations
 
-Default Random Forest settings, no custom decision threshold, and class imbalance were not specially handled, and rare slices can produce unstable scores. Results do suggest further testing: overall F1 is about 0.68, but gaps such as lower recall/F1 for females than males and weak education slices point to intersectional checks, threshold tuning, and more review of small groups. Major groups (sex, race, common education/workclass) appear in the test set, though a few train-only categories are missing there (e.g. `Never-worked`, `Holand-Netherlands`) and many native-country values have under 10 test rows. This model should stay educational—not used for credit, hiring, or benefits—and any extension should monitor group metrics and retrain when data changes. An ideal evaluation set would match the training population and features, cover important slices with enough samples (including rare categories), support intersectional analysis, and avoid leakage from the training fold.
-
+Results suggest further testing: overall F1 is about 0.68, but gaps such as lower recall/F1 for females than males point to the need for a deeper review of small groups. An ideal evaluation set would match the training population and features, cover important slices with enough samples (including rare categories), support intersectional analysis, and avoid leakage from the training fold.
