@@ -54,10 +54,12 @@ def test_compute_model_metrics_known_case():
     Metrics value: compute_model_metrics should return known precision,
     recall, and F1 for a fixed y / preds example.
     """
+
     # y:        [1, 1, 0, 0]
     # preds:    [1, 0, 0, 0]
     # TP=1, FP=0, FN=1, TN=2
     # precision=1.0, recall=0.5, f1=2/3
+    
     y = np.array([1, 1, 0, 0])
     preds = np.array([1, 0, 0, 0])
 
